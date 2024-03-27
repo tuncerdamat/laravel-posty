@@ -27,7 +27,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->getPassword()),
+            'password' => Hash::make($request->password),
         ]);
 
         // Gets the signed in user
