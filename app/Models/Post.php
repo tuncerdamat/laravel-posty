@@ -22,6 +22,11 @@ class Post extends Model
         return false;
     }
 
+    public function ownedBy(?User $user)
+    {
+        return $user->id === $this->user_id;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
