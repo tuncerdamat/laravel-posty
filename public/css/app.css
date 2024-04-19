@@ -521,6 +521,9 @@ video {
 .mt-2 {
   margin-top: 0.5rem;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
 .inline {
   display: inline;
 }
@@ -605,6 +608,10 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 .font-bold {
   font-weight: 700;
