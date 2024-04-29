@@ -13,19 +13,23 @@ class PostLikeController extends Controller
     {
         $this->middleware(['auth']);
     }
-    
+
     public function store(Post $post, Request $request)
     {
         $currentUser = $request->user();
+        $currentUserID = $currentUser->id;
+
         if ($post->likedBy($currentUser)) {
             return response(null, 409); // Conflict HTTP response
         }
 
         $post->likes()->create([
-            'user_id' => $currentUser->id,
+            'user_id' => $currentUserID,
         ]);
-        
-        Mail::to($post->user())->send(new PostLiked($currentUser, $post));
+
+        if (!$post->likes()->onlyTrashed()->where('user_id', $currentUserID)->count()) {
+            Mail::to($post->user)->send(new PostLiked($currentUser, $post));
+        }
 
         return back();
     }
@@ -37,7 +41,7 @@ class PostLikeController extends Controller
             ->likes()
             ->where('post_id', $post->id)
             ->delete();
-        
+
         return back();
     }
 }
